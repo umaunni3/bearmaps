@@ -10,7 +10,7 @@ public class Path {
 
     public void iterate(double dx, double dy) {
     	this.curr = this.next; // make a copy of this.next?
-    	this.next = new Point(curr.x+dx, curr.y+dy);
+    	this.next = new Point(curr.x + dx, curr.y + dy);
     }
 
 }
