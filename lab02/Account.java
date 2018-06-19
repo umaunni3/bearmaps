@@ -46,8 +46,9 @@ public class Account {
                 int overdraft = amount - this.balance;
                 if (this.parentAccount.withdraw(overdraft)) {
                     this.balance = 0;
+                    return true;
                 }
-            }
+            } 
             System.out.println("Insufficient funds");
             return false;
         } else {
