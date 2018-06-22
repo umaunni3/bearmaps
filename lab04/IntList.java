@@ -129,6 +129,9 @@ public class IntList {
     }
 
     public static IntList catenate(IntList A, IntList B) {
+        if (A == null || B == null) {
+            return null;
+        }
         IntList pA = A.rest;
         IntList pB = B;
         IntList newList = new IntList(A.first, null); // to return
@@ -152,6 +155,9 @@ public class IntList {
     }
 
     public static IntList dcatenate(IntList A, IntList B) {
+        if (A == null || B == null) {
+            return null;
+        }
         IntList p = A;
         while (p.rest != null) {
             // get to the last node of A
