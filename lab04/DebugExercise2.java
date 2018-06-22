@@ -37,16 +37,25 @@ public class DebugExercise2 {
         return returnArray;
     }
 
+    /** Return the larger integer **/
+    public static int max(int a, int b) {
+        if (a > b) {
+            return a;
+        } else {
+            return b;
+        }
+    }
     /** Returns the sum of all elements in x. */
     public static int arraySum(int[] x) {
         int i = 0;
         int sum = 0;
         while (i < x.length) {
-            sum = sum + add(sum, x[i]);
+            sum = add(sum, x[i]);
             i = i + 1;
         }
         return sum;
     }
+
 
     /**
      * Returns the sum of the element-wise max of a and b. For example if a =
@@ -59,15 +68,15 @@ public class DebugExercise2 {
     }
 
     /** Returns the max of a and b. Do not step into this function. */
-    public static int max(int a, int b) {
-        int w = (b - a) >> 31;
-        /* If you're stepping into this function, click the
-           step out button because you're not going to learn anything. */
-        int z = ~(b - a) >> 31;
-
-        int max = b & w | a & z;
-        return max;
-    }
+//    public static int max(int a, int b) {
+//        int w = (b - a) >> 31;
+//        /* If you're stepping into this function, click the
+//           step out button because you're not going to learn anything. */
+//        int z = ~(b - a) >> 31;
+//
+//        int max = b & w | a & z;
+//        return max;
+//    }
 
     /** Returns the sum of a and b. Do not step into this function. */
     public static int add(int a, int b) {
