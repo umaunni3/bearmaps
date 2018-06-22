@@ -36,19 +36,47 @@ public class IntList {
     /** Returns [position]th value in this list. */
     public int get(int position) {
         // TODO: YOUR CODE HERE
-        return 0;
+        // first, get to the top of the list
+
+        IntList L = this;
+        int i = 0;
+        while (L != null) {
+            if (i == position) {
+                return L.first;
+            } else {
+                L = L.rest;
+            }
+            i++;
+        }
+        return -1; // returns -1 when the index is out of bounds
+
     }
 
     /** Returns the string representation of the list. */
     public String toString() {
         // TODO: YOUR CODE HERE
-        return null;
+        if (this.rest == null) {
+            return Integer.toString(this.first);
+        } else {
+            return Integer.toString(this.first) + " " + this.rest.toString();
+        }
+        
     }
 
     /** Returns whether this and the given list or object are equal. */
     public boolean equals(Object o) {
         IntList other = (IntList) o;
         // TODO: YOUR CODE HERE
-        return false;
+        if (this.rest == null && other.rest == null) {
+            return this.first == other.first;
+        } else if (this.rest == null && other.rest != null || this.rest != null && other.rest == null) {
+            return false;
+        } else {
+            if (this.first == other.first) {
+                return this.rest.equals(other.rest);
+            } else {
+                return false;
+            }
+        }
     }
 }
