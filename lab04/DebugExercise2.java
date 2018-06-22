@@ -3,7 +3,8 @@
  * Code adapted from
  *
  * https://stackoverflow.com/questions/4895173/bitwise-multiply-and-add-in-java
- * https://stackoverflow.com/questions/1533131/what-useful-bitwise-operator-code-tricks-should-a-developer-know-about
+ * https://stackoverflow.com/questions/1533131/what-useful-bitwise-operator-code
+ * -tricks-should-a-developer-know-about
  */
 public class DebugExercise2 {
     public static void main(String[] args) {
