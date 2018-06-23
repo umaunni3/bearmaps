@@ -14,17 +14,6 @@ public class IntList {
         rest = r;
     }
 
-    public static void main(String[] args) {
-        IntList a = IntList.of(1, 2, 3);
-        IntList a1 = copy(a);
-        IntList b = IntList.of(4, 5, 6);
-        IntList ab = catenate(a, b);
-        IntList aNull = catenate(null, b);
-        IntList bNull = catenate(a, null);
-        IntList allNull = catenate(null, null);
-
-    }
-
     /** Returns the size of the list. */
     public int size() {
         if (rest == null) {
