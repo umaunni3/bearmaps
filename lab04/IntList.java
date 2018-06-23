@@ -14,11 +14,6 @@ public class IntList {
         rest = r;
     }
 
-    public static void main(String[] args) {
-        IntList a = IntList.of(1, 2, 3);
-        a.add(4);
-    }
-
     /** Returns the size of the list. */
     public int size() {
         if (rest == null) {
@@ -126,9 +121,24 @@ public class IntList {
         }
     }
 
+    /** Return a new IntList with the same contents as A **/
+    public static IntList copy(IntList A) {
+        IntList ret = new IntList(A.first, null);
+        A = A.rest;
+        IntList holder = ret;
+        while (A != null) {
+            ret.rest = new IntList(A.first, null);
+            ret = ret.rest;
+            A = A.rest;
+        }
+        return holder;
+    }
+
     public static IntList catenate(IntList A, IntList B) {
-        if (A == null || B == null) {
-            return null;
+        if (A == null) {
+            return copy(B);
+        } else if (B == null) {
+            return copy(A);
         }
         IntList pA = A.rest;
         IntList pB = B;
@@ -153,8 +163,10 @@ public class IntList {
     }
 
     public static IntList dcatenate(IntList A, IntList B) {
-        if (A == null || B == null) {
-            return null;
+        if (A == null) {
+            return B;
+        } else if (B == null) {
+            return A;
         }
         IntList p = A;
         while (p.rest != null) {
