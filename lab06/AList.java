@@ -30,7 +30,7 @@ public class AList<Item> {
     /** Returns if the collection contains k. */
     public boolean contains(Item x) {
         for (int i = 0; i < size; i++) {
-            if (items[i] == x) {
+            if (items[i].equals(x)) {
                 return true;
             }
         }
