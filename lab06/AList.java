@@ -56,8 +56,8 @@ public class AList<Item> {
         }
 
         // FIXME
-        for (int i = size() - 1; i > index; i -= 1) {
-            items[i-1] = items[i];
+        for (int i = size - 1; i > index; i--) {
+            items[i+1] = items[i];
         }
         items[index] = x;
         size += 1;
