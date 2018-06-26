@@ -58,12 +58,31 @@ public class DLList<BleepBlorp> {
 
     /** Adds item to the list at the specified index. */
     public void add(int index, BleepBlorp item) {
-        // TODO
+        if (index > size) {
+            addLast(item);
+            return;
+        } else {
+            Node holder = sentinel.next;
+            while (index > 0) {
+                holder = holder.next;
+                index -= 1;
+            }
+            Node n = new Node(item, holder.prev, holder);
+            holder.prev.next = n;
+            holder.prev = n;
+            size++;
+        }
     }
 
     /** Remove the first instance of item from this list. */
     public void remove(BleepBlorp item) {
-        // TODO
+        Node holder = sentinel.next;
+        while (holder.item != item) {
+            holder = holder.next;
+        }
+        holder.prev = holder.next;
+        holder.next.prev = holder.prev;
+
     }
 
     @Override

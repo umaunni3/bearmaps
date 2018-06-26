@@ -7,6 +7,26 @@ public class SLList {
         public int item;
         public IntNode next;
 
+        @java.lang.Override
+        public java.lang.String toString() {
+            return "IntNode{" +
+                    "item=" + item +
+                    ", next=" + next +
+                    '}';
+        }
+
+        public boolean equals(Object object) {
+            if (this == object) return true;
+            if (object == null || getClass() != object.getClass()) return false;
+
+            IntNode intNode = (IntNode) object;
+
+            if (item != intNode.item) return false;
+            if (next != null ? !next.equals(intNode.next) : intNode.next != null) return false;
+
+            return true;
+        }
+
         public IntNode(int i, IntNode n) {
             item = i;
             next = n;
@@ -29,7 +49,27 @@ public class SLList {
         size = 1;
     }
 
-    /** Returns an SLList consisting of the given values. */
+     public boolean equals(Object object) {
+         if (this == object) return true;
+         if (object == null || getClass() != object.getClass()) return false;
+
+         SLList slList = (SLList) object;
+
+         if (size != slList.size) return false;
+         if (sentinel != null ? !sentinel.equals(slList.sentinel) : slList.sentinel != null) return false;
+
+         return true;
+     }
+
+     @java.lang.Override
+     public java.lang.String toString() {
+         return "SLList{" +
+                 "sentinel=" + sentinel +
+                 ", size=" + size +
+                 '}';
+     }
+
+     /** Returns an SLList consisting of the given values. */
     public static SLList of(int... values) {
         SLList list = new SLList();
         for (int i = values.length - 1; i >= 0; i -= 1) {
@@ -74,13 +114,82 @@ public class SLList {
         p.next = new IntNode(x, null);
     }
 
+    /** Recursive helper method for add **/
+    public static void addHelper(IntNode N, int index, int x) {
+        if (index == 0) {
+            N.next = new IntNode(x, N.next);
+        } else {
+            addHelper(N.next, index-1, x);
+        }
+
+    }
     /** Adds x to the list at the specified index. */
     public void add(int index, int x) {
-        // TODO
+        if (index >= size) {
+            addLast(x);
+            return;
+        }
+        else if (index == 0) {
+            sentinel.next = new IntNode(x, sentinel.next);
+        } else {
+            addHelper(sentinel.next, index-1, x);
+        }
+        size += 1;
+    }
+
+    /** Recursive helper method for reverse **/
+    private static IntNode reverseHelper(IntNode N) {
+        if (N == null || N.next == null) {
+            return N;
+        } else {
+            IntNode first = N;
+            IntNode end = reverseHelper(N.next);
+
+            IntNode holder = end;
+            IntNode last = null;
+            while (holder.next != null && holder.next != last) {
+                last = holder;
+                holder = holder.next;
+            }
+            holder.next = first;
+            return end;
+
+        }
+    }
+
+
+    public void reverseNew() {
+        /** maybe reverse a list? just swap elements by pairs **/
+        int len = size();
+        IntNode front = sentinel.next;
+
     }
 
     /** Returns the reverse of this list. This method is destructive. */
     public void reverse() {
-        // TODO
+        IntNode N = sentinel.next;
+        if (N == null || N.next == null) {
+            return; // don't modify list
+        } else {
+            IntNode hold = sentinel.next;
+            IntNode p = N;
+            while (p != null && p.next != null) {
+
+                while (p.next.next != null) {
+                    p = p.next;
+                }
+                hold.next = p.next;
+                hold = hold.next;
+                p.next = null;
+                p = N;
+
+            }
+            if (p.next == null) {
+                hold.next = p;
+
+            }
+//            sentinel.next = N;
+        }
+
     }
 }
