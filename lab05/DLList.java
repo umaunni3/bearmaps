@@ -79,9 +79,14 @@ public class DLList<BleepBlorp> {
         Node holder = sentinel.next;
         while (holder.item != item) {
             holder = holder.next;
+            if (holder == null) {
+                return;
+            }
         }
-        holder.prev = holder.next;
+
+        holder.prev.next = holder.next;
         holder.next.prev = holder.prev;
+        size--;
 
     }
 
