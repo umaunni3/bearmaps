@@ -1,7 +1,7 @@
- /**
-  * An SLList is a list of integers, which hides the terrible truth of the
-  * nakedness within.
-  */
+/**
+ * An SLList is a list of integers, which hides the terrible truth of the
+ * nakedness within.
+ */
 public class SLList {
     private static class IntNode {
         public int item;
@@ -9,20 +9,28 @@ public class SLList {
 
         @java.lang.Override
         public java.lang.String toString() {
-            return "IntNode{" +
-                    "item=" + item +
-                    ", next=" + next +
-                    '}';
+            return "IntNode{"
+                    + "item=" + item
+                    + ", next=" + next
+                    + '}';
         }
 
         public boolean equals(Object object) {
-            if (this == object) return true;
-            if (object == null || getClass() != object.getClass()) return false;
+            if (this == object) {
+                return true;
+            }
+            if (object == null || getClass() != object.getClass()) {
+                return false;
+            }
 
             IntNode intNode = (IntNode) object;
 
-            if (item != intNode.item) return false;
-            if (next != null ? !next.equals(intNode.next) : intNode.next != null) return false;
+            if (item != intNode.item) {
+                return false;
+            }
+            if (next != null ? !next.equals(intNode.next) : intNode.next != null) {
+                return false;
+            }
 
             return true;
         }
@@ -37,7 +45,9 @@ public class SLList {
     private IntNode sentinel;
     private int size;
 
-    /** Creates an empty SLList. */
+    /**
+     * Creates an empty SLList.
+     */
     public SLList() {
         sentinel = new IntNode(63, null);
         size = 0;
@@ -49,27 +59,34 @@ public class SLList {
         size = 1;
     }
 
-     public boolean equals(Object object) {
-         if (this == object) return true;
-         if (object == null || getClass() != object.getClass()) return false;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
 
-         SLList slList = (SLList) object;
+        SLList slList = (SLList) object;
 
-         if (size != slList.size) return false;
-         if (sentinel != null ? !sentinel.equals(slList.sentinel) : slList.sentinel != null) return false;
+        if (size != slList.size) {
+            return false;
+        }
+        if (sentinel != null ? !sentinel.equals(slList.sentinel)
+                : slList.sentinel != null) {
+            return false;
+        }
 
-         return true;
-     }
+        return true;
+    }
 
-     @java.lang.Override
-     public java.lang.String toString() {
-         return "SLList{" +
-                 "sentinel=" + sentinel +
-                 ", size=" + size +
-                 '}';
-     }
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "SLList{"
+                + "sentinel=" + sentinel
+                + ", size=" + size
+                + '}';
+    }
 
-     /** Returns an SLList consisting of the given values. */
+    /**
+     * Returns an SLList consisting of the given values.
+     */
     public static SLList of(int... values) {
         SLList list = new SLList();
         for (int i = values.length - 1; i >= 0; i -= 1) {
@@ -78,23 +95,31 @@ public class SLList {
         return list;
     }
 
-    /** Returns the size of the list. */
+    /**
+     * Returns the size of the list.
+     */
     public int size() {
         return size;
     }
 
-    /** Adds x to the front of the list. */
+    /**
+     * Adds x to the front of the list.
+     */
     public void addFirst(int x) {
         sentinel.next = new IntNode(x, sentinel.next);
         size += 1;
     }
 
-    /** Returns the first item in the list. */
+    /**
+     * Returns the first item in the list.
+     */
     public int getFirst() {
         return sentinel.next.item;
     }
 
-    /** Return the value at the given index. */
+    /**
+     * Return the value at the given index.
+     */
     public int get(int index) {
         IntNode p = sentinel.next;
         while (index > 0) {
@@ -104,7 +129,9 @@ public class SLList {
         return p.item;
     }
 
-    /** Adds x to the end of the list. */
+    /**
+     * Adds x to the end of the list.
+     */
     public void addLast(int x) {
         size += 1;
         IntNode p = sentinel;
@@ -114,30 +141,36 @@ public class SLList {
         p.next = new IntNode(x, null);
     }
 
-    /** Recursive helper method for add **/
+    /**
+     * Recursive helper method for add
+     **/
     public static void addHelper(IntNode N, int index, int x) {
         if (index == 0) {
             N.next = new IntNode(x, N.next);
         } else {
-            addHelper(N.next, index-1, x);
+            addHelper(N.next, index - 1, x);
         }
 
     }
-    /** Adds x to the list at the specified index. */
+
+    /**
+     * Adds x to the list at the specified index.
+     */
     public void add(int index, int x) {
         if (index >= size) {
             addLast(x);
             return;
-        }
-        else if (index == 0) {
+        } else if (index == 0) {
             sentinel.next = new IntNode(x, sentinel.next);
         } else {
-            addHelper(sentinel.next, index-1, x);
+            addHelper(sentinel.next, index - 1, x);
         }
         size += 1;
     }
 
-    /** Recursive helper method for reverse **/
+    /**
+     * Recursive helper method for reverse
+     **/
     private static IntNode reverseHelper(IntNode N) {
         if (N == null || N.next == null) {
             return N;
@@ -175,7 +208,9 @@ public class SLList {
 
     }
 
-    /** Returns the reverse of this list. This method is destructive. */
+    /**
+     * Returns the reverse of this list. This method is destructive.
+     */
     public void reverse() {
         IntNode prev = null;
         IntNode curr = sentinel.next;
