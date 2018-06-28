@@ -35,11 +35,20 @@ public class SLListTest {
         assertEquals(s1, s1);
         assertEquals(SLList.of(1), s1);
 
+        // test with even-length list
         SLList s2 = SLList.of(1, 2, 3, 4);
         s2.reverse();
-        assertEquals(s1, s1);
-        assertNotEquals(s1, SLList.of(1, 2, 3, 4));
-        System.out.println(s1.toString());
-        assertEquals(s1, SLList.of(4, 3, 2, 1));
+        assertEquals(s2, s2);
+        assertNotEquals(s2, SLList.of(1, 2, 3, 4));
+//        System.out.println(s1.toString());
+        assertEquals(s2, SLList.of(4, 3, 2, 1));
+
+        // test with odd-length list
+        SLList s3 = SLList.of(1, 2, 3, 4, 5);
+        s3.reverse();
+        assertEquals(s3, s3);
+        assertNotEquals(s3, SLList.of(1, 2, 3, 4, 5));
+//        System.out.println(s3.toString());
+        assertEquals(s3, SLList.of(5, 4, 3, 2, 1));
     }
 }

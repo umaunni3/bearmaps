@@ -160,36 +160,36 @@ public class SLList {
 
     public void reverseNew() {
         /** maybe reverse a list? just swap elements by pairs **/
-        int len = size();
-        IntNode front = sentinel.next;
+        IntNode prev = null;
+        IntNode curr = sentinel.next;
+        IntNode subsequent = null;
+
+        while (curr != null) {
+            // store next node in a holder bc we're going to delete
+            // current reference to it
+            subsequent = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = subsequent;
+        }
 
     }
 
     /** Returns the reverse of this list. This method is destructive. */
     public void reverse() {
-        IntNode N = sentinel.next;
-        if (N == null || N.next == null) {
-            return; // don't modify list
-        } else {
-            IntNode hold = sentinel.next;
-            IntNode p = N;
-            while (p != null && p.next != null) {
+        IntNode prev = null;
+        IntNode curr = sentinel.next;
+        IntNode subsequent = null;
 
-                while (p.next.next != null) {
-                    p = p.next;
-                }
-                hold.next = p.next;
-                hold = hold.next;
-                p.next = null;
-                p = N;
-
-            }
-            if (p.next == null) {
-                hold.next = p;
-
-            }
-//            sentinel.next = N;
+        while (curr != null) {
+            // store next node in a holder bc we're going to delete
+            // current reference to it
+            subsequent = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = subsequent;
         }
+        sentinel.next = prev; // ensure that sentinel points to new head of list
 
     }
 }
