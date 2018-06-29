@@ -40,6 +40,6 @@ public class BooleanSet implements SimpleSet {
 
     /** Returns an array containing all of the elements in this collection. */
     public int[] toIntArray() {
-        // TODO
+        return null;
     }
 }
