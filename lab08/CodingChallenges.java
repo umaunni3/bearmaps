@@ -1,11 +1,6 @@
 import java.util.*;
 public class CodingChallenges {
 
-    /**
-     * Return the missing number from an array of length N - 1 containing all
-     * the values from 0 to N except for one missing number.
-     */
-
     public static void main(String[] args) {
         System.out.println("------");
         System.out.println("MissingNumber");
@@ -14,6 +9,10 @@ public class CodingChallenges {
         int[] v = new int[]{0, 1, 2, 4, 5};
         int x = missingNumber(v);
         System.out.println(x);
+
+        int[] w = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16};
+        int y = missingNumber(w);
+        System.out.println(y);
 
         System.out.println("------");
         System.out.println("SumTo");
@@ -36,6 +35,13 @@ public class CodingChallenges {
         System.out.println(isPermutation(s1, extra));
         System.out.println(isPermutation(s1, random));
     }
+
+
+    /**
+     * Return the missing number from an array of length N - 1 containing all
+     * the values from 0 to N except for one missing number.
+     */
+
     public static int missingNumber(int[] values) {
         List<Integer> vals = new ArrayList<>();
         // cast to Integer type and add to array
@@ -66,7 +72,7 @@ public class CodingChallenges {
             // iterate through all values; for each value, see
             // if there is a value k = n - vals[i] in vals
             int remainder = n - values[i];
-            if (vals.contains(remainder) && remainder != values[i]) {
+            if (vals.contains(remainder)) {
                 return true;
             }
         }

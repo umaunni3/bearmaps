@@ -15,12 +15,20 @@ public class BooleanSet implements SimpleSet {
 
     /** Adds k to the set. */
     public void add(int k) {
-        // TODO
+        if (!contains[k]) {
+            contains[k] = true;
+            size++;
+        }
+
     }
 
     /** Removes k from the set. */
     public void remove(int k) {
-        // TODO
+        if (contains[k]) {
+            contains[k] = false;
+            size--;
+        }
+
     }
 
     /** Return true if k is in this set, false otherwise. */
