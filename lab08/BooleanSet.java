@@ -48,6 +48,14 @@ public class BooleanSet implements SimpleSet {
 
     /** Returns an array containing all of the elements in this collection. */
     public int[] toIntArray() {
-        return null;
+        int[] ret = new int[size];
+        int j = 0;
+        for (int i = 0; i < contains.length; i++) {
+            if (contains[i]) {
+                ret[j] = i;
+                j++;
+            }
+        }
+        return ret;
     }
 }

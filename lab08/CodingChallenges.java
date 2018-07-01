@@ -6,13 +6,28 @@ public class CodingChallenges {
         System.out.println("MissingNumber");
 
         // test missingNumber
-        int[] v = new int[]{0, 1, 2, 4, 5};
-        int x = missingNumber(v);
+        int[] a = new int[]{0, 1, 2, 4, 5};
+        int x = missingNumber(a);
         System.out.println(x);
 
-        int[] w = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16};
-        int y = missingNumber(w);
+        int[] b = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16};
+        int y = missingNumber(b);
         System.out.println(y);
+
+        int missing = 71;
+        int[] c = new int[100];
+        int j = 0;
+        for (int i = 0; i < 100; i++) {
+            if (i != missing) {
+                c[i] = j;
+                j++;
+            } else {
+                j++;
+            }
+        }
+        int z = missingNumber(c);
+        System.out.println(z);
+
 
         System.out.println("------");
         System.out.println("SumTo");
@@ -20,6 +35,8 @@ public class CodingChallenges {
         // test sumTo
         int[] v1 = new int[]{1, 2, 3, 4, 5};
         System.out.println(sumTo(v1,10));
+
+
 
         System.out.println("------");
         System.out.println("IsPermutation");
@@ -49,14 +66,14 @@ public class CodingChallenges {
             vals.add(i);
         }
 
-        for (int i = 0; i < values.length - 1; i++) {
+        for (int i = 0; i < values.length; i++) {
             // iterate through the values which should be there
             if (vals.get(i) != i) {
                 return i;
             }
 
         }
-        return values.length;
+        return -1;
     }
 
     /** Returns true if and only if two integers in the array sum up to n. */
