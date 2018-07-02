@@ -1,4 +1,8 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.List;
+import java.util.HashSet;
+
 public class CodingChallenges {
 
     public static void main(String[] args) {
@@ -34,7 +38,7 @@ public class CodingChallenges {
 
         // test sumTo
         int[] v1 = new int[]{1, 2, 3, 4, 5};
-        System.out.println(sumTo(v1,10));
+        System.out.println(sumTo(v1, 10));
 
 
 
