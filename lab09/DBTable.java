@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.Objects;
@@ -47,8 +48,19 @@ public class DBTable<T> {
      * getter, without modifying the entries.
      */
     public <R extends Comparable<R>> List<T> getOrderedBy(Function<T, R> getter) {
-        // TODO
-        return null;
+
+        // Arrays.sort(entries, (o1, o2) -> T.compare(o1.getter(), o2.getter())
+
+        // make a copy of the original entries list
+        ArrayList<T> entriesCopy = new ArrayList<>();
+        for (int i = 0; i < entries.size(); i++) {
+            entriesCopy.add(i, entries.get(i));
+        }
+
+        // sort the copy of entries according to whatever getter returns
+        // ** sort modifies the list in place and returns null, so don't return this function call's output
+        entriesCopy.sort((o1, o2) -> (getter.apply((T) o1).compareTo(getter.apply((T) o2))));
+        return entriesCopy;
     }
 
     public static void main(String[] args) {
