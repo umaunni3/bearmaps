@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.Objects;
@@ -58,7 +57,7 @@ public class DBTable<T> {
         }
 
         // sort the copy of entries according to whatever getter returns
-        // ** sort modifies the list in place and returns null, so don't return this function call's output
+        // ** sort modifies the list in place and returns null
         entriesCopy.sort((o1, o2) -> (getter.apply((T) o1).compareTo(getter.apply((T) o2))));
         return entriesCopy;
     }
