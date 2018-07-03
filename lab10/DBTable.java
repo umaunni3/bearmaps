@@ -60,7 +60,7 @@ public class DBTable<T> {
      */
     public <R> List<T> getWhitelisted(Function<T, R> getter, Collection<R> whitelist) {
         return getEntries().stream()
-                .filter(o1 -> whitelist.contains(o1))
+                .filter(o1 -> whitelist.contains(getter.apply(o1)))
                 .collect(Collectors.toList());
     }
 
