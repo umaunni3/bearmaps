@@ -2,7 +2,11 @@
  * A DLList is a list of integers. Like SLList, it also hides the terrible
  * truth of the nakedness within, but with a few additional optimizations.
  */
-public class DLList<Item> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+
+public class DLList<Item> implements Iterable<Item> {
     private class Node {
         public Node prev;
         public Item item;
@@ -79,5 +83,33 @@ public class DLList<Item> {
             op = op.next;
         }
         return true;
+    }
+
+    public Iterator<Item> iterator() {
+        return new DLListIterator();
+    }
+
+    private class DLListIterator implements Iterator<Item> {
+        private Node current = sentinel.next; // acts as bookmark for current node
+
+        /** Return the next item in the DLList or raise an exception if
+         * there is no next item
+         * @return Item
+         */
+        public Item next() {
+            if (current == sentinel) {
+                // finished iterating
+                throw new NoSuchElementException();
+            } else {
+                Item ret = current.item;
+                current = current.next;
+                return ret;
+            }
+        }
+
+        public boolean hasNext() {
+            return current != sentinel;
+        }
+
     }
 }
