@@ -70,7 +70,9 @@ public class DBTable<T> {
      * DBTable<String> names = table.getSubtableOf(User::getUsername);
      */
     public <R> DBTable<R> getSubtableOf(Function<T, R> getter) {
-        return new DBTable<R>(getEntries().stream().map(getter).collect(Collectors.toList()));
+        return new DBTable<R>(getEntries().stream()
+                .map(getter)
+                .collect(Collectors.toList()));
     }
 
     public static void main(String[] args) {
