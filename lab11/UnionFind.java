@@ -50,7 +50,6 @@ public class UnionFind {
                 // this node is the root!
                 return v;
             } else {
-                System.out.println(v);
                 int n = find(vertices[v]);
                 vertices[v] = n;
                 return n;
