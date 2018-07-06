@@ -4,7 +4,7 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
 
-    int[][] layout; // -1 -> open; 0 -> blocked; 1 -> full
+    int[][] layout; // 1 -> open; 0 -> blocked
     int dimension;
     int openSites;
     WeightedQuickUnionUF grid;
@@ -28,7 +28,7 @@ public class Percolation {
                 // space already is open/full
                 return;
             }
-            layout[row][col] = -1;
+            layout[row][col] = 1;
             openSites++;
             if (row == 0) {
                 // in top row; connect to water source
@@ -67,7 +67,7 @@ public class Percolation {
     /* Returns true if the site at (row, col) is open. */
     public boolean isOpen(int row, int col) {
         try {
-            return layout[row][col] == -1;
+            return layout[row][col] == 1;
         } catch (Exception e){
             throw new IndexOutOfBoundsException();
         }

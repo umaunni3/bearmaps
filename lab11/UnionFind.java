@@ -70,9 +70,15 @@ public class UnionFind {
         int s2 = sizeOf(v2);
 
         if (s1 == s2 || s2 > s1) {
+            vertices[v2] += vertices[v1];
             vertices[v1] = v2;
         } else if (s1 > s2) {
+            vertices[v1] += vertices[v2];
             vertices[v2] = v1;
         }
+    }
+
+    public static void main(String[] args) {
+        UnionFind u1 = new UnionFind(5);
     }
 }
