@@ -69,12 +69,15 @@ public class UnionFind {
         int s1 = sizeOf(v1);
         int s2 = sizeOf(v2);
 
+        int r1 = find(v1);
+        int r2 = find(v2);
+
         if (s1 == s2 || s2 > s1) {
-            vertices[v2] += vertices[v1];
-            vertices[v1] = v2;
+            vertices[r2] += vertices[r1];
+            vertices[r1] = r2;
         } else if (s1 > s2) {
-            vertices[v1] += vertices[v2];
-            vertices[v2] = v1;
+            vertices[r1] += vertices[r2];
+            vertices[r2] = r1;
         }
     }
 
