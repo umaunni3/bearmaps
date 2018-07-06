@@ -13,11 +13,10 @@ public class UnionFind {
 
     /* Returns the size of the set V belongs to. */
     public int sizeOf(int v) {
-        int x = v;
-        while (vertices[x] >= 0) {
-            x = vertices[x];
+        while (vertices[v] >= 0) {
+            v = vertices[v];
         }
-        return -1 * vertices[x];
+        return -1 * vertices[v];
 
     }
 
@@ -51,6 +50,7 @@ public class UnionFind {
                 // this node is the root!
                 return v;
             } else {
+                System.out.println(v);
                 int n = find(vertices[v]);
                 vertices[v] = n;
                 return n;
@@ -80,5 +80,9 @@ public class UnionFind {
 
     public static void main(String[] args) {
         UnionFind u1 = new UnionFind(5);
+        u1.union(0, 1);
+        u1.find(3);
+        u1.find(0);
+        int x= u1.sizeOf(1);
     }
 }
