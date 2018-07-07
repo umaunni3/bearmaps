@@ -28,8 +28,8 @@ public class UnionFind {
 
     /* Returns true if nodes V1 and V2 are connected. */
     public boolean connected(int v1, int v2) {
-        int v1P = parent(v1);
-        int v2P = parent(v2);
+        int v1P = find(v1);
+        int v2P = find(v2);
         if ((v1P < 0 && v2P == v1) || (v1P < 0 && v1P == v2)) {
             // one node is a root and the other is a child of the first node
             return true;
@@ -65,16 +65,13 @@ public class UnionFind {
        with itself or vertices that are already connected should not change the
        structure. */
     public void union(int v1, int v2) {
-        int s1 = sizeOf(v1);
-        int s2 = sizeOf(v2);
-
         int r1 = find(v1);
         int r2 = find(v2);
 
-        if (s1 == s2 || s2 > s1) {
+        if (vertices[r1] == vertices[r2] || vertices[r2] > vertices[r1]) {
             vertices[r2] += vertices[r1];
             vertices[r1] = r2;
-        } else if (s1 > s2) {
+        } else if (vertices[r1] > vertices[r2]) {
             vertices[r1] += vertices[r2];
             vertices[r2] = r1;
         }
