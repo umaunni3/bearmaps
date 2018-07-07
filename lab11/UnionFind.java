@@ -62,10 +62,10 @@ public class UnionFind {
         if (r1 == r2) {
             return;
         }
-        if (vertices[r2] >= vertices[r1]) {
+        if (-1* vertices[r2] >= -1* vertices[r1]) {
             vertices[r2] += vertices[r1];
             vertices[r1] = r2;
-        } else if (vertices[r1] > vertices[r2]) {
+        } else if (-1* vertices[r1] > -1* vertices[r2]) {
             vertices[r1] += vertices[r2];
             vertices[r2] = r1;
         }
