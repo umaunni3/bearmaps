@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Stack;
 
 /* An AmoebaFamily is a tree, where nodes are Amoebas, each of which can have
    any number of children. */
@@ -26,7 +27,9 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
        the ROOT Amoeba printed first. Each Amoeba should be indented four spaces
        more than its parent. */
     public void print() {
-        // TODO: YOUR CODE HERE
+        if (root != null) {
+            root.printHelper(0);
+        }
     }
 
     /* Returns the length of the longest name in this AmoebaFamily. */
@@ -39,13 +42,15 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
 
     /* Returns the longest name in this AmoebaFamily. */
     public String longestName() {
-        // TODO: YOUR CODE HERE
+        if (root != null) {
+            return root.longestNameHelper();
+        }
         return "";
     }
 
     /* Returns an Iterator for this AmoebaFamily. */
     public Iterator<Amoeba> iterator() {
-        return new AmoebaDFSIterator();
+        return new AmoebaBFSIterator(this.root);
     }
 
     /* Creates a new AmoebaFamily and prints it out. */
@@ -65,6 +70,16 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
         family.addChild("Marge", "Hilary");
         System.out.println("Here's the family:");
         family.print();
+
+        System.out.println("----------");
+        System.out.println(family.longestName()); // should return "Amos McCoy"
+
+        System.out.println("----------");
+        Iterator<Amoeba> it = family.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next().name);
+        }
+
     }
 
     /* An Amoeba is a node of an AmoebaFamily. */
@@ -115,7 +130,36 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
             return maxLengthSeen;
         }
 
-        // TODO: ADD HELPER FUNCTIONS HERE
+        public void printHelper(int depth) {
+            if (children.size() == 0) {
+                // this just print this one
+                for (int i = 0; i < depth * 4; i++) {
+                    System.out.print(" ");
+                }
+                System.out.println(name);
+            } else {
+                // there are children to print; but first print this name
+                for (int i = 0; i < depth * 4; i++) {
+                    System.out.print(" ");
+                }
+                System.out.println(name);
+
+                for (Amoeba a : children) {
+                    a.printHelper(depth+1);
+                }
+            }
+        }
+
+        public String longestNameHelper() {
+            String longestName = name;
+            if (children.size() == 0) { return name; }
+            for (Amoeba a : children) {
+                if (a.name.length() > longestName.length()) {
+                    longestName = a.name;
+                }
+            }
+            return longestName;
+        }
 
     }
 
@@ -125,20 +169,32 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
     public class AmoebaDFSIterator implements Iterator<Amoeba> {
 
         // TODO: IMPLEMENT THE CLASS HERE
+        public Stack<Amoeba> fridge;
+
 
         /* AmoebaDFSIterator constructor. Sets up all of the initial information
            for the AmoebaDFSIterator. */
-        public AmoebaDFSIterator() {
+        public AmoebaDFSIterator(Amoeba a) {
+            fridge = new Stack<Amoeba>();
+            fridge.push(a);
         }
 
         /* Returns true if there is a next element to return. */
         public boolean hasNext() {
-            return false;
+            return !fridge.empty();
         }
 
         /* Returns the next element. */
         public Amoeba next() {
-            return null;
+            Amoeba root = (Amoeba) fridge.pop();
+            ArrayList<Amoeba> children = root.getChildren();
+            int numChildren = children.size();
+            for (int i = numChildren-1; i >= 0; i--){
+                fridge.push(children.get(i));
+            }
+
+            return root;
+
         }
 
         public void remove() {
@@ -151,21 +207,28 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
        O(N) operations. */
     public class AmoebaBFSIterator implements Iterator<Amoeba> {
 
-        // TODO: IMPLEMENT THE CLASS HERE
+        public ArrayList<Amoeba> fridge;
 
         /* AmoebaBFSIterator constructor. Sets up all of the initial information
            for the AmoebaBFSIterator. */
-        public AmoebaBFSIterator() {
+        public AmoebaBFSIterator(Amoeba a) {
+            fridge = new ArrayList<Amoeba>();
+            fridge.add(0, a);
         }
 
         /* Returns true if there is a next element to return. */
         public boolean hasNext() {
-            return false;
+            return fridge.size() != 0;
         }
 
         /* Returns the next element. */
         public Amoeba next() {
-            return null;
+            Amoeba root = fridge.remove(0);
+            for (Amoeba a : root.getChildren()) {
+                fridge.add(a);
+            }
+            return root;
+
         }
 
         public void remove() {

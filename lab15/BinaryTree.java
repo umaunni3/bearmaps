@@ -16,22 +16,34 @@ public class BinaryTree<T> {
 
     /* Returns the height of the tree. */
     public int height() {
-        // TODO: YOUR CODE HERE
-        return 0;
+        return root.tHeight();
     }
+
+
 
     /* Returns true if the tree's left and right children are the same height
        and are themselves completely balanced. */
     public boolean isCompletelyBalanced() {
-        // TODO: YOUR CODE HERE
-        return false;
+        return root.isBalanced();
     }
 
     /* Returns a BinaryTree representing the Fibonacci calculation for N. */
     public static BinaryTree<Integer> fibTree(int N) {
-        BinaryTree<Integer> result = new BinaryTree<Integer>();
-        return null;
+        BinaryTree<Integer> result = new BinaryTree<Integer>(new TreeNode<Integer>(0));
+        if (N == 0) {
+            result.root.setItem(0);
+        } else if (N == 1) {
+            result.root.setItem(1);
+        } else {
+            result.root.left = fibTree(N-1).root;
+            result.root.right = fibTree(N-2).root;
+
+            result.root.setItem((int) result.root.left.getItem() + (int) result.root.right.getItem());
+
+        }
+        return result;
     }
+
 
     /* Print the values in the tree in preorder: root value first, then values
        in the left subtree (in preorder), then values in the right subtree
@@ -101,6 +113,11 @@ public class BinaryTree<T> {
         print(t, "sample tree 1");
         t.sampleTree2();
         print(t, "sample tree 2");
+        System.out.println(t.height());
+
+        System.out.println("----------");
+        BinaryTree ft = fibTree(5);
+        print(ft, "fib tree!!!!");
     }
 
     /* Note: this class is public in this lab for testing purposes. However,
@@ -169,5 +186,29 @@ public class BinaryTree<T> {
         }
 
         // TODO: ADD HELPER METHODS HERE
+
+        public int tHeight() {
+            if (left == null && right == null) {
+                return 1;
+            } else if (left == null) {
+                return 1 + right.tHeight();
+            } else if (right == null) {
+                return 1 + left.tHeight();
+            } else {
+                return 1 + Math.max(left.tHeight(), right.tHeight());
+            }
+
+        }
+
+        public boolean isBalanced() {
+            if (left == null && right == null) {
+                return true;
+            } else if (left == null || right == null) {
+                return false;
+            } else {
+                return left.tHeight() == right.tHeight() &&
+                        left.isBalanced() && right.isBalanced();
+            }
+        }
     }
 }
