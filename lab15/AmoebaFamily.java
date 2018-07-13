@@ -189,7 +189,7 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
             Amoeba rootNew = (Amoeba) fridge.pop();
             ArrayList<Amoeba> children = rootNew.getChildren();
             int numChildren = children.size();
-            for (int i = numChildren-1; i >= 0; i--){
+            for (int i = numChildren - 1; i >= 0; i--) {
                 fridge.push(children.get(i));
             }
 
