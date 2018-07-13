@@ -16,7 +16,11 @@ public class BinaryTree<T> {
 
     /* Returns the height of the tree. */
     public int height() {
-        return root.tHeight();
+        if (root == null) {
+            return 0;
+        } else {
+            return root.tHeight();
+        }
     }
 
 
@@ -35,10 +39,11 @@ public class BinaryTree<T> {
         } else if (N == 1) {
             result.root.setItem(1);
         } else {
-            result.root.left = fibTree(N-1).root;
-            result.root.right = fibTree(N-2).root;
+            result.root.left = fibTree(N - 1).root;
+            result.root.right = fibTree(N - 2).root;
 
-            result.root.setItem((int) result.root.left.getItem() + (int) result.root.right.getItem());
+            result.root.setItem((int) result.root.left.getItem() +
+                    (int) result.root.right.getItem());
 
         }
         return result;
@@ -184,8 +189,6 @@ public class BinaryTree<T> {
                 right.printInorder();
             }
         }
-
-        // TODO: ADD HELPER METHODS HERE
 
         public int tHeight() {
             if (left == null && right == null) {
