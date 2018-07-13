@@ -1,24 +1,27 @@
 public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
-
     /* Creates an empty BST. */
     public BinarySearchTree() {
-        // TODO: YOUR CODE HERE
+        super();
     }
 
     /* Creates a BST with root as ROOT. */
     public BinarySearchTree(TreeNode root) {
-        // TODO: YOUR CODE HERE
+        super(root);
     }
 
     /* Returns true if the BST contains the given KEY. */
     public boolean contains(T key) {
-        // TODO: YOUR CODE HERE
-        return false;
+        return root.contains(key);
     }
 
     /* Adds a node for KEY iff KEY isn't in the BST already. */
     public void add(T key) {
-        // TODO: YOUR CODE HERE
+        if (root != null) {
+            root.add(key);
+        } else {
+            root = new TreeNode(key);
+        }
+
     }
 
     /* Deletes a node from the BST. */

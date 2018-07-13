@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class BinaryTree<T> {
+public class BinaryTree<T extends Comparable<T>> {
 
     protected TreeNode root;
 
@@ -88,6 +88,42 @@ public class BinaryTree<T> {
             System.out.print(item + " ");
             if (right != null) {
                 right.printInorder();
+            }
+        }
+
+        /* Helper for BinarySearchTree contains method */
+        public boolean contains(T key) {
+            int comp = key.compareTo(item);
+            if (comp == 0) {
+                return true;
+            } else if (comp > 0) {
+                // the key is larger this node's item
+                return right != null && right.contains(key);
+            } else {
+                return left != null && left.contains(key);
+            }
+        }
+
+        public void add(T key) {
+            int comp = key.compareTo(item);
+            if (comp == 0) {
+                // don't add it to the tree
+                return;
+            } else if (comp > 0) {
+                // go to right
+                if (right != null) {
+                    right.add(key);
+                } else {
+                    // add new item as right branch of this node
+                    right = new TreeNode(key);
+                }
+            } else {
+                if (left != null) {
+                    left.add(key);
+                } else {
+                    // add new item as left branch of this node
+                    left = new TreeNode(key);
+                }
             }
         }
     }
