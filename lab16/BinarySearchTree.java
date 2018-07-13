@@ -11,7 +11,10 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
 
     /* Returns true if the BST contains the given KEY. */
     public boolean contains(T key) {
-        return root.contains(key);
+        if (root != null) {
+            return root.contains(key);
+        }
+        return false;
     }
 
     /* Adds a node for KEY iff KEY isn't in the BST already. */
