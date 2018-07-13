@@ -145,14 +145,16 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
                 System.out.println(name);
 
                 for (Amoeba a : children) {
-                    a.printHelper(depth+1);
+                    a.printHelper(depth + 1);
                 }
             }
         }
 
         public String longestNameHelper() {
             String longestName = name;
-            if (children.size() == 0) { return name; }
+            if (children.size() == 0) {
+                return name;
+            }
             for (Amoeba a : children) {
                 if (a.name.length() > longestName.length()) {
                     longestName = a.name;
@@ -167,8 +169,6 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
        AmoebaFamily. Complete enumeration of a family of N Amoebas should take
        O(N) operations. */
     public class AmoebaDFSIterator implements Iterator<Amoeba> {
-
-        // TODO: IMPLEMENT THE CLASS HERE
         public Stack<Amoeba> fridge;
 
 
@@ -186,14 +186,14 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
 
         /* Returns the next element. */
         public Amoeba next() {
-            Amoeba root = (Amoeba) fridge.pop();
-            ArrayList<Amoeba> children = root.getChildren();
+            Amoeba rootNew = (Amoeba) fridge.pop();
+            ArrayList<Amoeba> children = rootNew.getChildren();
             int numChildren = children.size();
             for (int i = numChildren-1; i >= 0; i--){
                 fridge.push(children.get(i));
             }
 
-            return root;
+            return rootNew;
 
         }
 
@@ -223,11 +223,11 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
 
         /* Returns the next element. */
         public Amoeba next() {
-            Amoeba root = fridge.remove(0);
-            for (Amoeba a : root.getChildren()) {
+            Amoeba rootNew = fridge.remove(0);
+            for (Amoeba a : rootNew.getChildren()) {
                 fridge.add(a);
             }
-            return root;
+            return rootNew;
 
         }
 

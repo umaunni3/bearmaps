@@ -42,8 +42,8 @@ public class BinaryTree<T> {
             result.root.left = fibTree(N - 1).root;
             result.root.right = fibTree(N - 2).root;
 
-            result.root.setItem((int) result.root.left.getItem() +
-                    (int) result.root.right.getItem());
+            result.root.setItem((int) result.root.left.getItem()
+                    + (int) result.root.right.getItem());
 
         }
         return result;
@@ -209,8 +209,8 @@ public class BinaryTree<T> {
             } else if (left == null || right == null) {
                 return false;
             } else {
-                return left.tHeight() == right.tHeight() &&
-                        left.isBalanced() && right.isBalanced();
+                return left.tHeight() == right.tHeight()
+                        && left.isBalanced() && right.isBalanced();
             }
         }
     }
