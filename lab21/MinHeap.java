@@ -120,12 +120,12 @@ public class MinHeap<E extends Comparable<E>> {
     /* Bubbles down the element currently at index INDEX. */
     private void bubbleDown(int index) {
         //
-        if (getLeftOf(index) < size() && min(index, getLeftOf(index)) != index) {
+        if (getLeftOf(index) < size && min(index, getLeftOf(index)) != index) {
             // current item is not smaller than its left child; swap them
             swap(index, getLeftOf(index));
             bubbleDown(getLeftOf(index));
         //
-        } else if (getRightOf(index) < size() && min(index, getRightOf(index)) != index) {
+        } else if (getRightOf(index) < size && min(index, getRightOf(index)) != index) {
             // current item is not smaller than its right child; swap them
             swap(index, getRightOf(index));
             bubbleDown(getRightOf(index));
@@ -139,13 +139,13 @@ public class MinHeap<E extends Comparable<E>> {
         contents.add(element);
         size += 1;
         // now, bubble it up
-        bubbleUp(contents.size()-1);
+        bubbleUp(size-1);
 
     }
 
     /* Returns the number of elements in the MinHeap. */
     public int size() {
-        return contents.size();
+        return size;
     }
 
     /* Returns the smallest element. */
