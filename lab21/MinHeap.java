@@ -68,66 +68,105 @@ public class MinHeap<E extends Comparable<E>> {
 
     /* Returns the index of the left child of the element at index INDEX. */
     private int getLeftOf(int index) {
-        // TODO: YOUR CODE HERE
-        return -1;
+        return index*2;
     }
 
     /* Returns the index of the right child of the element at index INDEX. */
     private int getRightOf(int index) {
-        // TODO: YOUR CODE HERE
-        return -1;
+        return index*2 + 1;
     }
 
     /* Returns the index of the parent of the element at index INDEX. */
     private int getParentOf(int index) {
-        // TODO: YOUR CODE HERE
-        return -1;
+        return index/2;
     }
 
     /* Returns the index of the smaller element. At least one index has a
        non-null element. */
     private int min(int index1, int index2) {
-        // TODO: YOUR CODE HERE
-        return -1;
+        if (contents.get(index1) == null || contents.get(index1).compareTo(contents.get(index2)) < 0) {
+            return index2;
+//        } else if (contents.get(index2) == null || contents.get(index1).compareTo(contents.get(index2)) > 0) {
+//            return index1;
+//        }
+        } else { // do i need the above conditional? maybe, maybe not :P we'll see
+            return index1;
+        }
     }
 
     /* Returns but does not remove the smallest element in the MinHeap. */
     public E peek() {
-        // TODO: YOUR CODE HERE
-        return null;
+        return contents.get(1);
     }
 
     /* Bubbles up the element currently at index INDEX. */
     private void bubbleUp(int index) {
-        // TODO: YOUR CODE HERE
+        E item = contents.get(index);
+        E parent = contents.get(getParentOf(index));
+        if (item.compareTo(parent) < 0) {
+            // this item is smaller than its parent! keep bubbling up
+            swap(index, getParentOf(index));
+            bubbleUp(getParentOf(index));
+        } else {
+            // we're done! i think?
+            return;
+
+        }
     }
 
     /* Bubbles down the element currently at index INDEX. */
     private void bubbleDown(int index) {
-        // TODO: YOUR CODE HERE
+        if (min(index, getLeftOf(index)) != index) {
+            // current item is not smaller than its left child; swap them
+            swap(index, getLeftOf(index));
+            bubbleDown(getLeftOf(index));
+        } else if (min(index, getRightOf(index)) != index) {
+            // current item is not smaller than its right child; swap them
+            swap(index, getRightOf(index));
+            bubbleDown(getRightOf(index));
+        }
+        // implicit base case: root is smaller than both children; returns void
     }
 
     /* Inserts element into the MinHeap. */
     public void insert(E element) {
-        // TODO: YOUR CODE HERE
+        // first, put element in next available spot in array
+        contents.add(element);
+        // now, bubble it up
+        bubbleUp(contents.size()-1);
     }
 
     /* Returns the number of elements in the MinHeap. */
     public int size() {
-        // TODO: YOUR CODE HERE
-        return 0;
+        return contents.size();
     }
 
     /* Returns the smallest element. */
     public E removeMin() {
-        // TODO: YOUR CODE HERE
-        return null;
+        // first, swap the root and the rightmost bottom element
+        swap(1, size());
+        // now, remove the rightmost bottom element
+        E toReturn = contents.remove(size());
+        bubbleDown(1);
+        return toReturn;
+
     }
 
     /* Updates the position of ELEMENT inside the MinHeap, which may have been
        mutated since the inital insert. If a copy of ELEMENT does not exist in
        the MinHeap, do nothing.*/
     public void update(E element) {
-        // TODO: YOUR CODE HERE
+        if (!contents.contains(element)) {
+            return;
+        } else {
+            int currIndex = contents.indexOf(element);
+            // the item can only go up or down (or stay the same). which to do?
+            if (element.compareTo(contents.get(getParentOf(currIndex))) < 0) {
+                // this element is now smaller than its parent; bubble it up!
+                bubbleUp(currIndex);
+            } else {
+                bubbleDown(currIndex);
+            }
+        }
     }
 }
