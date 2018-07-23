@@ -4,6 +4,10 @@ public class MinHeapPQ<T> implements PriorityQueue<T> {
     public static void main(String[] args) {
         MinHeapPQ<String> pq = new MinHeapPQ<>();
         pq.insert("Cat", 3);
+//        pq.insert("Hi", 2);
+//        pq.insert("Eight", 5);
+//        pq.insert("Four", 4);
+        pq.changePriority("Cat",1);
     }
 
     /* The heap backing our MinHeapPQ. */

@@ -119,16 +119,18 @@ public class MinHeap<E extends Comparable<E>> {
 
     /* Bubbles down the element currently at index INDEX. */
     private void bubbleDown(int index) {
-        if (min(index, getLeftOf(index)) != index) {
+        //
+        if (getLeftOf(index) < size()-1 && min(index, getLeftOf(index)) != index) {
             // current item is not smaller than its left child; swap them
             swap(index, getLeftOf(index));
             bubbleDown(getLeftOf(index));
-        } else if (min(index, getRightOf(index)) != index) {
+        //
+        } else if (getRightOf(index) < size() && min(index, getRightOf(index)) != index) {
             // current item is not smaller than its right child; swap them
             swap(index, getRightOf(index));
             bubbleDown(getRightOf(index));
         }
-        // implicit base case: root is smaller than both children; returns void
+        // implicit base case: root is smaller than both children, or has no children; returns void
     }
 
     /* Inserts element into the MinHeap. */
@@ -141,7 +143,7 @@ public class MinHeap<E extends Comparable<E>> {
 
     /* Returns the number of elements in the MinHeap. */
     public int size() {
-        return contents.size();
+        return contents.size()+1;
     }
 
     /* Returns the smallest element. */
@@ -164,7 +166,11 @@ public class MinHeap<E extends Comparable<E>> {
         } else {
             int currIndex = contents.indexOf(element);
             // the item can only go up or down (or stay the same). which to do?
-            if (element.compareTo(contents.get(getParentOf(currIndex))) < 0) {
+
+            if (getParentOf(currIndex) == 0) {
+                bubbleDown(currIndex);
+            }
+            else if (getParentOf(currIndex) < size() && element.compareTo(contents.get(getParentOf(currIndex))) < 0) {
                 // this element is now smaller than its parent; bubble it up!
                 bubbleUp(currIndex);
             } else {
