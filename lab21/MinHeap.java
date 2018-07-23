@@ -125,7 +125,7 @@ public class MinHeap<E extends Comparable<E>> {
             swap(index, getLeftOf(index));
             bubbleDown(getLeftOf(index));
         //
-        } else if (getRightOf(index) < size() && min(index, getRightOf(index)) != index) {
+        } else if (getRightOf(index) < size()-1 && min(index, getRightOf(index)) != index) {
             // current item is not smaller than its right child; swap them
             swap(index, getRightOf(index));
             bubbleDown(getRightOf(index));
