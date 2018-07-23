@@ -1,6 +1,11 @@
 /* A PriorityQueue class that uses a min heap to maintain ordering. */
 public class MinHeapPQ<T> implements PriorityQueue<T> {
 
+    public static void main(String[] args) {
+        MinHeapPQ<String> pq = new MinHeapPQ<>();
+        pq.insert("Cat", 3);
+    }
+
     /* The heap backing our MinHeapPQ. */
     private MinHeap<PriorityItem> heap;
 

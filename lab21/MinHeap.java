@@ -103,6 +103,9 @@ public class MinHeap<E extends Comparable<E>> {
     private void bubbleUp(int index) {
         E item = contents.get(index);
         E parent = contents.get(getParentOf(index));
+        if (parent == null) {
+            return;
+        }
         if (item.compareTo(parent) < 0) {
             // this item is smaller than its parent! keep bubbling up
             swap(index, getParentOf(index));
