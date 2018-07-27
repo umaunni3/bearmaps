@@ -171,6 +171,7 @@ public class Graph implements Iterable<Integer> {
        List. If START == STOP, returns a List with START. */
     public List<Integer> path(int start, int stop) {
         List<Integer> path = new ArrayList<>();
+        HashSet<Integer> visited = new HashSet<>();
         if (!pathExists(start, stop)) {
             return path;
         } else if (start == stop) {
@@ -181,10 +182,23 @@ public class Graph implements Iterable<Integer> {
             Iterator<Integer> dfsIter = dfsList.iterator();
             while (dfsIter.hasNext()) {
                 int currInt = dfsIter.next();
-                path.add(currInt);
-                if (currInt == stop) {
-                    return path;
+//                System.out.println(currInt);
+                if (!pathExists(currInt, stop)) {
+//                    System.out.println("no valid path from here");
+                    // this is a dead end! just pass
+                    visited.add(currInt);
+//                    currInt = path.get(path.size()-1);
+//                    dfsIter = dfs(currInt).iterator();
+                } else {
+//                    System.out.println("adding this ^ to path");
+                    path.add(currInt);
+                    if (currInt == stop) {
+                        return path;
+                    }
+                    visited.add(currInt);
                 }
+
+
             }
             assert false; // should never have gotten here cuz a path does exist
             return null;
