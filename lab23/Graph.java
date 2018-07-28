@@ -1,4 +1,10 @@
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Stack;
+import java.util.Collections;
 
 public class Graph implements Iterable<Integer> {
 
@@ -59,7 +65,6 @@ public class Graph implements Iterable<Integer> {
     /* Returns true if there exists an Edge from vertex FROM to vertex TO.
        Returns false otherwise. */
     public boolean isAdjacent(int from, int to) {
-        // TODO: YOUR CODE HERE
         LinkedList<Edge> edgesOut = adjLists[from];
         for (Edge e : edgesOut) {
             if (e.to == to) {
@@ -92,7 +97,6 @@ public class Graph implements Iterable<Integer> {
     }
     /* Returns the number of incoming Edges for vertex V. */
     public int inDegree(int v) {
-        // TODO: YOUR CODE HERE
         return inEdges[v].size();
     }
 
@@ -208,15 +212,12 @@ public class Graph implements Iterable<Integer> {
                                     break;
                                 }
                             }
-
                         }
                         LinkedList<Integer> reverse = new LinkedList<>();
                         for (int i : path) {
                             reverse.addFirst(i);
                         }
                         return new ArrayList<>(reverse);
-
-
                     }
                 }
 
@@ -240,20 +241,16 @@ public class Graph implements Iterable<Integer> {
 
         private Stack<Integer> fringe;
 
-        // TODO: Instance variables here!
 
         TopologicalIterator() {
             fringe = new Stack<Integer>();
-            // TODO: YOUR CODE HERE
         }
 
         public boolean hasNext() {
-            // TODO: YOUR CODE HERE
             return false;
         }
 
         public Integer next() {
-            // TODO: YOUR CODE HERE
             return 0;
         }
 
