@@ -117,17 +117,18 @@ public class Graph implements Iterable<Integer> {
         }
 
         public boolean hasNext() {
-            // TODO: YOUR CODE HERE
             return !fringe.empty();
         }
 
         public Integer next() {
-            // TODO: YOUR CODE HERE
             if (!fringe.empty()) {
                 int curr = fringe.pop();
-                for (Edge e : adjLists[curr]) {
+                List<Edge> edges = new ArrayList<>(adjLists[curr]);
+                Collections.sort(edges, (o1, o2) -> (((Edge) o1).to - ((Edge) o2).to));
+                for (Edge e : edges) {
                     if (!visited.contains(e.to)) {
                         fringe.add(e.to);
+                        visited.add(e.to);
                     }
                 }
                 visited.add(curr);
@@ -207,24 +208,7 @@ public class Graph implements Iterable<Integer> {
                                     break;
                                 }
                             }
-//                            for (Edge e : neighbors) {
-//                                if (currInt == start) {
-//                                    break;
-//                                }
-//                                System.out.println(e);
-//                                if (!stopPls) {
-//                                    for (int i : visited)
-//                                        if (isAdjacent(e.to, i)) {
-//                                            System.out.println("adjacent! " + e.to + ", " + i);
-//                                            System.out.println();
-//                                            path.add(e.to);
-//                                            currInt = e.to;
-//                                            System.out.println("new currInt: " + currInt);
-//                                            stopPls = true;
-//                                            break;
-//                                        }
-//                                }
-//                            }
+
                         }
                         LinkedList<Integer> reverse = new LinkedList<>();
                         for (int i : path) {
