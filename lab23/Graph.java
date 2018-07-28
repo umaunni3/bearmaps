@@ -1,9 +1,4 @@
-import java.util.LinkedList;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Iterator;
-import java.util.Stack;
-import java.util.HashSet;
+import java.util.*;
 
 public class Graph implements Iterable<Integer> {
 
@@ -68,6 +63,12 @@ public class Graph implements Iterable<Integer> {
         LinkedList<Edge> edgesOut = adjLists[from];
         for (Edge e : edgesOut) {
             if (e.to == to) {
+                return true;
+            }
+        }
+
+        for (Edge e : inEdges[from]) {
+            if (e.from == from) {
                 return true;
             }
         }
@@ -158,44 +159,81 @@ public class Graph implements Iterable<Integer> {
     public boolean pathExists(int start, int stop) {
         List<Integer> dfsList = dfs(start);
         Iterator<Integer> dfsIter = dfsList.iterator();
-        while (dfsIter.hasNext()) {
-            if (dfsIter.next() == stop) {
-                return true;
-            }
-        }
-        return false;
+//        while (dfsIter.hasNext()) {
+//            if (dfsIter.next() == stop) {
+//                return true;
+//            }
+//        }
+        return dfsList.contains(stop);
     }
 
 
     /* Returns the path from START to STOP. If no path exists, returns an empty
        List. If START == STOP, returns a List with START. */
     public List<Integer> path(int start, int stop) {
+        List<Integer> visited = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
-        HashSet<Integer> visited = new HashSet<>();
         if (!pathExists(start, stop)) {
-            return path;
+            return visited;
         } else if (start == stop) {
-            path.add(start);
-            return path;
+            visited.add(start);
+            return visited;
         } else {
             List<Integer> dfsList = dfs(start);
             Iterator<Integer> dfsIter = dfsList.iterator();
             while (dfsIter.hasNext()) {
                 int currInt = dfsIter.next();
-//                System.out.println(currInt);
+//                System.out.println("currently " + currInt);
                 if (!pathExists(currInt, stop)) {
-//                    System.out.println("no valid path from here");
                     // this is a dead end! just pass
-                    visited.add(currInt);
-//                    currInt = path.get(path.size()-1);
-//                    dfsIter = dfs(currInt).iterator();
+                    continue;
                 } else {
-//                    System.out.println("adding this ^ to path");
-                    path.add(currInt);
-                    if (currInt == stop) {
-                        return path;
-                    }
                     visited.add(currInt);
+                    if (currInt == stop) {
+                        // time to traverse back
+                        // get neighbors of the current node
+                        path.add(currInt);
+                        while (currInt != start) {
+//                            System.out.println("curr Int is : " + currInt);
+                            LinkedList<Edge> neighbors = adjLists[currInt];
+                            boolean stopPls = false;
+
+                            for (int i : visited) {
+                                // find a node that's adjacent to this one
+                                if (isAdjacent(i, currInt)) {
+                                    // found one!
+                                    path.add(i);
+                                    currInt = i;
+                                    break;
+                                }
+                            }
+//                            for (Edge e : neighbors) {
+//                                if (currInt == start) {
+//                                    break;
+//                                }
+//                                System.out.println(e);
+//                                if (!stopPls) {
+//                                    for (int i : visited)
+//                                        if (isAdjacent(e.to, i)) {
+//                                            System.out.println("adjacent! " + e.to + ", " + i);
+//                                            System.out.println();
+//                                            path.add(e.to);
+//                                            currInt = e.to;
+//                                            System.out.println("new currInt: " + currInt);
+//                                            stopPls = true;
+//                                            break;
+//                                        }
+//                                }
+//                            }
+                        }
+                        LinkedList<Integer> reverse = new LinkedList<>();
+                        for (int i : path) {
+                            reverse.addFirst(i);
+                        }
+                        return new ArrayList<>(reverse);
+
+
+                    }
                 }
 
 
@@ -332,20 +370,23 @@ public class Graph implements Iterable<Integer> {
     }
 
     public static void main(String[] args) {
-        Graph g1 = new Graph(5);
-        g1.generateG1();
+        Graph g1 = new Graph(7);
+        g1.generateG3();
         g1.printDFS(0);
         g1.printDFS(2);
         g1.printDFS(3);
         g1.printDFS(4);
 
+//        System.out.println(g1.pathExists(1, 5));
+//        System.out.println(g1.pathExists(0,4));
+
         g1.printPath(0, 3);
-        g1.printPath(0, 4);
-        g1.printPath(1, 3);
-        g1.printPath(1, 4);
+        g1.printPath(0, 5);
+        g1.printPath(3, 6);
+        g1.printPath(5, 1);
         g1.printPath(4, 0);
 
-        Graph g2 = new Graph(5);
+        Graph g2 = new Graph(7);
         g2.generateG2();
         g2.printTopologicalSort();
     }
